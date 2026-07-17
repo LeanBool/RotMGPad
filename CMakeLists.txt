@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 
-project(GamePadRealm)
+project(RotMGPad)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -26,10 +26,10 @@ elseif(WIN32)
             virtualinput/VirtualKeyboard_Windows.cpp
     )
 else()
-    message(FATAL_ERROR "GamePadRealm only has virtual input backends for Linux and Windows.")
+    message(FATAL_ERROR "RotMGPad only has virtual input backends for Linux and Windows.")
 endif()
 
-add_executable(GamePadRealm
+add_executable(RotMGPad
         main.cpp
         globals.hpp
         globals.cpp
@@ -80,12 +80,12 @@ add_executable(GamePadRealm
         thirdparty/src/glad.c
 )
 
-target_include_directories(GamePadRealm PRIVATE
+target_include_directories(RotMGPad PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/include
 )
 
-target_link_libraries(GamePadRealm PRIVATE
+target_link_libraries(RotMGPad PRIVATE
         OpenGL::GL
         SDL2::SDL2
         SDL2::SDL2main
@@ -94,11 +94,11 @@ target_link_libraries(GamePadRealm PRIVATE
 )
 
 if (UNIX AND NOT APPLE)
-    target_include_directories(GamePadRealm PRIVATE
+    target_include_directories(RotMGPad PRIVATE
             ${X11_INCLUDE_DIR}
     )
 
-    target_link_libraries(GamePadRealm PRIVATE
+    target_link_libraries(RotMGPad PRIVATE
             ${X11_LIBRARIES}
             Xfixes
     )
@@ -110,7 +110,7 @@ endif()
 
 include(GNUInstallDirs)
 
-install(TARGETS GamePadRealm
+install(TARGETS RotMGPad
         RUNTIME DESTINATION .
 )
 
