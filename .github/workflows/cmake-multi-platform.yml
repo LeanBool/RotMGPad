@@ -43,12 +43,12 @@ jobs:
         run: cmake --install build --prefix dist
 
       - name: Package binary
-        run: tar -czf GamePadRealm-linux-x86_64.tar.gz -C dist .
+        run: tar -czf RotMGPad-linux-x86_64.tar.gz -C dist .
 
       - uses: actions/upload-artifact@v4
         with:
-          name: GamePadRealm-linux
-          path: GamePadRealm-linux-x86_64.tar.gz
+          name: RotMGPad-linux
+          path: RotMGPad-linux-x86_64.tar.gz
 
   build-windows:
     runs-on: windows-latest
@@ -81,12 +81,12 @@ jobs:
       - name: Package binary
         shell: pwsh
         run: |
-          Compress-Archive -Path dist\* -DestinationPath GamePadRealm-windows-x86_64.zip
+          Compress-Archive -Path dist\* -DestinationPath RotMGPadRealm-windows-x86_64.zip
 
       - uses: actions/upload-artifact@v4
         with:
-          name: GamePadRealm-windows
-          path: GamePadRealm-windows-x86_64.zip
+          name: RotMGPadRealm-windows
+          path: RotMGPadRealm-windows-x86_64.zip
 
   release:
     needs: [build-linux, build-windows]
@@ -96,15 +96,15 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: GamePadRealm-linux
+          name: RotMGPadRealm-linux
 
       - uses: actions/download-artifact@v4
         with:
-          name: GamePadRealm-windows
+          name: RotMGPadRealm-windows
 
       - uses: softprops/action-gh-release@v2
         with:
           files: |
-            GamePadRealm-linux-x86_64.tar.gz
-            GamePadRealm-windows-x86_64.zip
+            RotMGPadRealm-linux-x86_64.tar.gz
+            RotMGPadRealm-windows-x86_64.zip
           generate_release_notes: true
