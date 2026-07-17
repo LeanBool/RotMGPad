@@ -1,0 +1,220 @@
+//
+// Runtime definitions + scaling logic for globals.hpp.
+//
+
+#include "globals.hpp"
+#include <cmath>
+#include <algorithm>
+
+int BATTLE_PASS_CLOSE_POPUP_X = 0;
+int BATTLE_PASS_CLOSE_POPUP_Y = 0;
+int BATTLE_PASS_CLAIM_ALL_X = 0;
+int BATTLE_PASS_CLAIM_ALL_Y = 0;
+int BATTLE_PASS_X = 0;
+int BATTLE_PASS_Y = 0;
+int BATTLE_PASS_CLOSE_X = 0;
+int BATTLE_PASS_CLOSE_Y = 0;
+
+int MISSION_MODE_SEE_ALL_X = 0;
+int MISSION_MODE_SEE_ALL_Y = 0;
+int MISSION_MODE_CLOSE_X = 0;
+int MISSION_MODE_CLOSE_Y = 0;
+
+int MISSION_PREVIEW_MODE_SCROLL_X = 0;
+int MISSION_PREVIEW_MODE_SCROLL_Y = 0;
+int MISSION_PREVIEW_MODE_SCROLL_WIDTH = 0;
+int MISSION_PREVIEW_MODE_SCROLL_HEIGHT = 0;
+
+int ATTRIBUTES_DUNGEONS_TAB_X = 0;
+int ATTRIBUTES_DUNGEONS_TAB_Y = 0;
+int ATTRIBUTES_STATS_TAB_X = 0;
+int ATTRIBUTES_STATS_TAB_Y = 0;
+int ATTRIBUTES_SCROLL_X = 0;
+int ATTRIBUTES_SCROLL_Y = 0;
+int ATTRIBUTES_SCROLL_WIDTH = 0;
+int ATTRIBUTES_SCROLL_HEIGHT = 0;
+
+int PET_INVENTORY_X = 0;
+int PET_INVENTORY_Y = 0;
+int PET_INVENTORY_WIDTH = 0;
+int PET_INVENTORY_HEIGHT = 0;
+
+int MENUBAR_X = 0;
+int MENUBAR_Y = 0;
+int MENUBAR_WIDTH = 0;
+int MENUBAR_HEIGHT = 0;
+
+int EQUIPMENT_SLOT0_X = 0;
+int EQUIPMENT_SLOT0_Y = 0;
+int EQUIPMENT_SLOT_WIDTH = 0;
+int EQUIPMENT_SLOT_HEIGHT = 0;
+
+int POTION_RACK_SLOT0_X = 0;
+int POTION_RACK_SLOT0_Y = 0;
+int POTION_RACK_SLOT_OFFSET_X = 0;
+int POTION_RACK_SLOT_OFFSET_Y = 0;
+int POTION_RACK_SLOT_WIDTH = 0;
+int POTION_RACK_SLOT_HEIGHT = 0;
+
+int CENTER_X = 0;
+int CENTER_Y = 0;
+int RADIUS = 0;
+
+int CHAT_X = 0;
+int CHAT_Y = 0;
+int CHAT_HEIGHT = 0;
+int CHAT_WIDTH = 0;
+int CHAT_JOIN_BUTTON_OFFSET_X = 0;
+int CHAT_JOIN_BUTTON_OFFSET_Y = 0;
+int CHAT_TELEPORT_BUTTON_OFFSET_X = 0;
+int CHAT_TELEPORT_BUTTON_OFFSET_Y = 0;
+
+int PICKUP_SLOT0_X = 0;
+int PICKUP_SLOT0_Y = 0;
+int PICKUP_SLOT_WIDTH = 0;
+int PICKUP_SLOT_HEIGHT = 0;
+
+int MAP_CENTER_X = 0;
+int MAP_CENTER_Y = 0;
+int MAP_RADIUS = 0;
+int MAP_TELEPORT_BUTTON_OFFSET_X = 0;
+int MAP_TELEPORT_BUTTON_OFFSET_Y = 0;
+
+int INV_SLOT_WIDTH = 0;
+int INV_SLOT_HEIGHT = 0;
+int INV_SLOT0_X = 0;
+int INV_SLOT0_Y = 0;
+
+int EXTRA_SLOT0_WIDTH = 0;
+int EXTRA_SLOT0_X = 0;
+int EXTRA_SLOT0_Y = 0;
+
+int VAULT_SLOT0_X = 0;
+int VAULT_SLOT0_Y = 0;
+
+int SCREEN_WIDTH = Base::SCREEN_WIDTH;
+int SCREEN_HEIGHT = Base::SCREEN_HEIGHT;
+int SCREEN_CENTER_X = Base::SCREEN_WIDTH / 2;
+int SCREEN_CENTER_Y = Base::SCREEN_HEIGHT / 2;
+
+int WHEEL_CENTER_X = Base::SCREEN_WIDTH / 2;
+int WHEEL_CENTER_Y = Base::SCREEN_HEIGHT / 2;
+int WHEEL_RADIUS = Base::WHEEL_RADIUS;
+
+void initScaledGlobals(const int actualScreenWidth, const int actualScreenHeight) {
+    const double s = std::min(
+        static_cast<double>(actualScreenWidth) / Base::SCREEN_WIDTH,
+        static_cast<double>(actualScreenHeight) / Base::SCREEN_HEIGHT
+    );
+
+    const double offsetX = (actualScreenWidth - Base::SCREEN_WIDTH * s) / 2.0;
+    const double offsetY = (actualScreenHeight - Base::SCREEN_HEIGHT * s) / 2.0;
+
+    const auto X = [&](const int v) { return static_cast<int>(std::lround(offsetX + v * s)); };
+    const auto Y = [&](const int v) { return static_cast<int>(std::lround(offsetY + v * s)); };
+    const auto D = [&](const int v) { return static_cast<int>(std::lround(v * s)); };
+
+    BATTLE_PASS_CLOSE_POPUP_X = X(Base::BATTLE_PASS_CLOSE_POPUP_X);
+    BATTLE_PASS_CLOSE_POPUP_Y = Y(Base::BATTLE_PASS_CLOSE_POPUP_Y);
+    BATTLE_PASS_CLAIM_ALL_X = X(Base::BATTLE_PASS_CLAIM_ALL_X);
+    BATTLE_PASS_CLAIM_ALL_Y = Y(Base::BATTLE_PASS_CLAIM_ALL_Y);
+    BATTLE_PASS_X = X(Base::BATTLE_PASS_X);
+    BATTLE_PASS_Y = Y(Base::BATTLE_PASS_Y);
+    BATTLE_PASS_CLOSE_X = X(Base::BATTLE_PASS_CLOSE_X);
+    BATTLE_PASS_CLOSE_Y = Y(Base::BATTLE_PASS_CLOSE_Y);
+
+    MISSION_MODE_SEE_ALL_X = X(Base::MISSION_MODE_SEE_ALL_X);
+    MISSION_MODE_SEE_ALL_Y = Y(Base::MISSION_MODE_SEE_ALL_Y);
+    MISSION_MODE_CLOSE_X = X(Base::MISSION_MODE_CLOSE_X);
+    MISSION_MODE_CLOSE_Y = Y(Base::MISSION_MODE_CLOSE_Y);
+
+    MISSION_PREVIEW_MODE_SCROLL_X = X(Base::MISSION_PREVIEW_MODE_SCROLL_X);
+    MISSION_PREVIEW_MODE_SCROLL_Y = Y(Base::MISSION_PREVIEW_MODE_SCROLL_Y);
+    MISSION_PREVIEW_MODE_SCROLL_WIDTH = D(Base::MISSION_PREVIEW_MODE_SCROLL_WIDTH);
+    MISSION_PREVIEW_MODE_SCROLL_HEIGHT = D(Base::MISSION_PREVIEW_MODE_SCROLL_HEIGHT);
+
+    ATTRIBUTES_DUNGEONS_TAB_X = X(Base::ATTRIBUTES_DUNGEONS_TAB_X);
+    ATTRIBUTES_DUNGEONS_TAB_Y = Y(Base::ATTRIBUTES_DUNGEONS_TAB_Y);
+    ATTRIBUTES_STATS_TAB_X = X(Base::ATTRIBUTES_STATS_TAB_X);
+    ATTRIBUTES_STATS_TAB_Y = Y(Base::ATTRIBUTES_STATS_TAB_Y);
+    ATTRIBUTES_SCROLL_X = X(Base::ATTRIBUTES_SCROLL_X);
+    ATTRIBUTES_SCROLL_Y = Y(Base::ATTRIBUTES_SCROLL_Y);
+    ATTRIBUTES_SCROLL_WIDTH = D(Base::ATTRIBUTES_SCROLL_WIDTH);
+    ATTRIBUTES_SCROLL_HEIGHT = D(Base::ATTRIBUTES_SCROLL_HEIGHT);
+
+    PET_INVENTORY_X = X(Base::PET_INVENTORY_X);
+    PET_INVENTORY_Y = Y(Base::PET_INVENTORY_Y);
+    PET_INVENTORY_WIDTH = D(Base::PET_INVENTORY_WIDTH);
+    PET_INVENTORY_HEIGHT = D(Base::PET_INVENTORY_HEIGHT);
+
+    MENUBAR_X = X(Base::MENUBAR_X);
+    MENUBAR_Y = Y(Base::MENUBAR_Y);
+    MENUBAR_WIDTH = D(Base::MENUBAR_WIDTH);
+    MENUBAR_HEIGHT = D(Base::MENUBAR_HEIGHT);
+
+    EQUIPMENT_SLOT0_X = X(Base::EQUIPMENT_SLOT0_X);
+    EQUIPMENT_SLOT0_Y = Y(Base::EQUIPMENT_SLOT0_Y);
+    EQUIPMENT_SLOT_WIDTH = D(Base::EQUIPMENT_SLOT_WIDTH);
+    EQUIPMENT_SLOT_HEIGHT = D(Base::EQUIPMENT_SLOT_HEIGHT);
+
+    POTION_RACK_SLOT0_X = X(Base::POTION_RACK_SLOT0_X);
+    POTION_RACK_SLOT0_Y = Y(Base::POTION_RACK_SLOT0_Y);
+    POTION_RACK_SLOT_OFFSET_X = D(Base::POTION_RACK_SLOT_OFFSET_X);
+    POTION_RACK_SLOT_OFFSET_Y = D(Base::POTION_RACK_SLOT_OFFSET_Y);
+    POTION_RACK_SLOT_WIDTH = D(Base::POTION_RACK_SLOT_WIDTH);
+    POTION_RACK_SLOT_HEIGHT = D(Base::POTION_RACK_SLOT_HEIGHT);
+
+    CENTER_X = X(Base::CENTER_X);
+    CENTER_Y = Y(Base::CENTER_Y);
+    RADIUS = D(Base::RADIUS);
+
+    CHAT_X = X(Base::CHAT_X);
+    CHAT_Y = Y(Base::CHAT_Y);
+    CHAT_HEIGHT = D(Base::CHAT_HEIGHT);
+    CHAT_WIDTH = D(Base::CHAT_WIDTH);
+    CHAT_JOIN_BUTTON_OFFSET_X = D(Base::CHAT_JOIN_BUTTON_OFFSET_X);
+    CHAT_JOIN_BUTTON_OFFSET_Y = D(Base::CHAT_JOIN_BUTTON_OFFSET_Y);
+    CHAT_TELEPORT_BUTTON_OFFSET_X = D(Base::CHAT_TELEPORT_BUTTON_OFFSET_X);
+    CHAT_TELEPORT_BUTTON_OFFSET_Y = D(Base::CHAT_TELEPORT_BUTTON_OFFSET_Y);
+
+    PICKUP_SLOT0_X = X(Base::PICKUP_SLOT0_X);
+    PICKUP_SLOT0_Y = Y(Base::PICKUP_SLOT0_Y);
+    PICKUP_SLOT_WIDTH = D(Base::PICKUP_SLOT_WIDTH);
+    PICKUP_SLOT_HEIGHT = D(Base::PICKUP_SLOT_HEIGHT);
+
+    MAP_CENTER_X = X(Base::MAP_CENTER_X);
+    MAP_CENTER_Y = Y(Base::MAP_CENTER_Y);
+    MAP_RADIUS = D(Base::MAP_RADIUS);
+    MAP_TELEPORT_BUTTON_OFFSET_X = D(Base::MAP_TELEPORT_BUTTON_OFFSET_X);
+    MAP_TELEPORT_BUTTON_OFFSET_Y = D(Base::MAP_TELEPORT_BUTTON_OFFSET_Y);
+
+    INV_SLOT_WIDTH = D(Base::INV_SLOT_WIDTH);
+    INV_SLOT_HEIGHT = D(Base::INV_SLOT_HEIGHT);
+    INV_SLOT0_X = X(Base::INV_SLOT0_X);
+    INV_SLOT0_Y = Y(Base::INV_SLOT0_Y);
+
+    EXTRA_SLOT0_WIDTH = D(Base::EXTRA_SLOT0_WIDTH);
+    EXTRA_SLOT0_X = X(Base::EXTRA_SLOT0_X);
+    EXTRA_SLOT0_Y = Y(Base::EXTRA_SLOT0_Y);
+
+    VAULT_SLOT0_X = X(Base::VAULT_SLOT0_X);
+    VAULT_SLOT0_Y = Y(Base::VAULT_SLOT0_Y);
+
+    // These describe the *game content* rectangle used for joystick->cursor
+    // mapping (e.g. NormalMode's reticle, BattlePassMode's cursor) — that
+    // range should stay within the visible 16:9 game area, not spill out
+    // into the black bars, so they use the scaled game size, not the full
+    // physical screen size.
+    SCREEN_WIDTH = D(Base::SCREEN_WIDTH);
+    SCREEN_HEIGHT = D(Base::SCREEN_HEIGHT);
+    SCREEN_CENTER_X = X(Base::SCREEN_WIDTH / 2);
+    SCREEN_CENTER_Y = Y(Base::SCREEN_HEIGHT / 2);
+
+    // The wheel menu is GamePadRealm's own overlay UI (not a RotMG element),
+    // so centering it on the game content area is a deliberate choice rather
+    // than a matching requirement — free to move to the physical screen
+    // center instead if you'd rather it ignore the letterbox bars.
+    WHEEL_CENTER_X = X(Base::SCREEN_WIDTH / 2);
+    WHEEL_CENTER_Y = Y(Base::SCREEN_HEIGHT / 2);
+    WHEEL_RADIUS = D(Base::WHEEL_RADIUS);
+}
