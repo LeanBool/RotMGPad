@@ -24,10 +24,6 @@
 #include "modes/VaultMode.hpp"
 
 namespace {
-
-// Type-erased mode constructor, used to populate kModeFactories /
-// kButtonTransitions without needing the concrete mode type at the call
-// site (this replaces the old `switchMode<ModeT>()` template).
 template <typename ModeT>
 std::unique_ptr<IInputMode> makeMode(VirtualMouse* mouse, VirtualKeyboard* keyboard) {
     return std::make_unique<ModeT>(mouse, keyboard);
@@ -38,9 +34,6 @@ struct ModeFactoryEntry {
     ControllerManager::ModeFactory factory;
 };
 
-// MODE -> constructor lookup. Add one line here whenever a new mode class
-// is introduced; everything else (the button table, the wheel) just
-// references the MODE value.
 constexpr std::array<ModeFactoryEntry, 14> kModeFactories = {{
     { normalMode,       &makeMode<NormalMode> },
     { teleportMode,     &makeMode<TeleportMode> },
@@ -64,9 +57,6 @@ ControllerManager::ModeFactory factoryFor(const MODE mode) {
     }
     return nullptr;
 }
-
-// --- Small reusable guard / transform predicates for the transition table.
-// Each is a plain function pointer so the table stays a `constexpr` array.
 
 template <MODE M>
 bool modeIsNot(IInputMode& mode) { return mode.id() != M; }

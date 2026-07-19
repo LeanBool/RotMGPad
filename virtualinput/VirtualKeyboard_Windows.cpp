@@ -1,9 +1,3 @@
-// Windows backend for VirtualKeyboard, using SendInput with the keyboard
-// scan-code path (KEYEVENTF_SCANCODE) rather than virtual-key codes: RotMG,
-// like most games, reads physical scan codes for movement/hotkeys, and
-// scan codes are also layout-independent (KEY_W is always the key at the
-// "W" position, regardless of the user's keyboard layout) which matches
-// how the Linux evdev codes in Keycodes.hpp behave.
 #include "VirtualKeyboard.hpp"
 #include "../platform/PlatformSleep.hpp"
 #include "Keycodes.hpp"
@@ -29,7 +23,7 @@ namespace {
 
     void sendKeyEvent(const int keycode, const bool down) {
         const WORD scanCode = scanCodeFor(keycode);
-        if (scanCode == 0) return; // unmapped code — add it to the table above
+        if (scanCode == 0) return;
 
         INPUT input{};
         input.type = INPUT_KEYBOARD;
@@ -40,7 +34,6 @@ namespace {
 }
 
 struct VirtualKeyboard::Impl {
-    // Nothing to set up ahead of time — SendInput needs no registered device.
 };
 
 VirtualKeyboard::VirtualKeyboard() : impl_(std::make_unique<Impl>()) {}

@@ -1,7 +1,3 @@
-// Linux backend for VirtualKeyboard: a uinput virtual HID keyboard. Works
-// under both X11 and Wayland/gamescope since uinput sits below the display
-// server. Codes come straight from Keycodes.hpp, which on Linux is just
-// <linux/input-event-codes.h> passed through unchanged.
 #include "VirtualKeyboard.hpp"
 #include "../platform/PlatformSleep.hpp"
 

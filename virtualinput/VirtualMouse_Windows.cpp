@@ -1,6 +1,3 @@
-// Windows backend for VirtualMouse. There's no uinput equivalent here, so
-// this uses SendInput to inject real mouse events directly (RotMG sees them
-// exactly like hardware input) and GetCursorPos to read the position back.
 #include "VirtualMouse.hpp"
 #include "../platform/PlatformSleep.hpp"
 
@@ -19,8 +16,6 @@ namespace {
 }
 
 struct VirtualMouse::Impl {
-    // Nothing to set up ahead of time on Windows — SendInput needs no
-    // virtual device registration the way uinput does.
 };
 
 VirtualMouse::VirtualMouse() : impl_(std::make_unique<Impl>()) {}

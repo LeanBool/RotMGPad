@@ -28,9 +28,7 @@ enum MODE {
 // window. Base:: holds those original measurements untouched, as a reference.
 // The plain names (BATTLE_PASS_X, INV_SLOT0_X, ...) are runtime values,
 // computed once at startup by initScaledGlobals() so they land in the right
-// place at whatever resolution the game is actually running at. Every call
-// site elsewhere in the codebase keeps using the plain names exactly as
-// before — only globals.hpp/.cpp change.
+// place at whatever resolution the game is actually running at.
 // ---------------------------------------------------------------------------
 
 namespace Base {
@@ -126,8 +124,6 @@ namespace Base {
     constexpr int WHEEL_RADIUS = 400;
 }
 
-// Runtime, resolution-scaled values — same names every mode file already
-// uses. Populated by initScaledGlobals(); valid only after that has run.
 extern int BATTLE_PASS_CLOSE_POPUP_X;
 extern int BATTLE_PASS_CLOSE_POPUP_Y;
 extern int BATTLE_PASS_CLAIM_ALL_X;

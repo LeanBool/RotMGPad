@@ -5,12 +5,6 @@
 
 #include <memory>
 
-// Platform-agnostic virtual mouse: injects clicks/movement at the OS input
-// level (so RotMG sees a real mouse) and reports the current cursor
-// position. The header carries no platform types (no X11 Display*, no
-// windows.h) so every other file can include it freely; the actual
-// implementation lives in VirtualMouse_Linux.cpp or VirtualMouse_Windows.cpp,
-// selected by CMake for the target platform.
 class VirtualMouse {
 public:
     VirtualMouse();

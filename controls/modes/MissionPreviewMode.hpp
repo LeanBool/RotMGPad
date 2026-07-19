@@ -1,7 +1,3 @@
-//
-// Created by alex on 7/12/26.
-//
-
 #ifndef GAMEPADREALM_MISSIONPREVIEWMODE_HPP
 #define GAMEPADREALM_MISSIONPREVIEWMODE_HPP
 #include "IInputMode.hpp"

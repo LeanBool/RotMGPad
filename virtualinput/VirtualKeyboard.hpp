@@ -4,9 +4,6 @@
 
 #include <memory>
 
-// Platform-agnostic virtual keyboard. Callers pass the portable codes from
-// Keycodes.hpp (KEY_W, KEY_SPACE, ...); the Linux backend feeds them to
-// uinput as-is, the Windows backend translates them to Win32 VK_ codes.
 class VirtualKeyboard {
 public:
     VirtualKeyboard();
@@ -17,7 +14,7 @@ public:
 
     void press(int keycode) const;    // key down
     void release(int keycode) const;  // key up
-    void tap(int keycode) const;      // press + release, e.g. for a single keystroke
+    void tap(int keycode) const;      // press + release
 
 private:
     struct Impl;

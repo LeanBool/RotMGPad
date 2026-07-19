@@ -340,12 +340,10 @@ int Renderer::SDL_main() {
 #elif defined(_WIN32)
     HWND hwnd = glfwGetWin32Window(window);
 
-    // Make it a layered window for transparency
     LONG_PTR exStyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
     exStyle |= WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE;
     SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle);
 
-    // Set transparency color (use a color you don't render with)
     SetLayeredWindowAttributes(hwnd, RGB(0, 0, 0), 255, LWA_COLORKEY);
 
     SetWindowPos(hwnd, nullptr, 0, 0, 0, 0,
@@ -422,15 +420,11 @@ int Renderer::SDL_main() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-
-
     glEnable(GL_BLEND);
-
     glBlendFunc(
         GL_SRC_ALPHA,
         GL_ONE_MINUS_SRC_ALPHA
     );
-
 
     loadFont(
         "fonts/DejaVuSans.ttf",

@@ -1,7 +1,3 @@
-//
-// Created by alex on 7/10/26.
-//
-
 #ifndef GAMEPADREALM_RENDERER_HPP
 #define GAMEPADREALM_RENDERER_HPP
 
@@ -21,12 +17,10 @@ struct Character {
     GLuint advance = 0;
 };
 
-// Describes a repeating slot grid (inventory/pickup/vault/potion racks) so the
-// highlight-drawing logic doesn't need one near-identical branch per mode.
 struct GridHighlight {
     float originX, originY;
     float slotWidth, slotHeight;
-    float strideX, strideY; // usually == slotWidth/slotHeight, but potion rack spaces slots wider than they are drawn
+    float strideX, strideY;
     int columns;
 };
 

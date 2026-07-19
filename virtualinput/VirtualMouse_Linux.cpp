@@ -1,14 +1,3 @@
-// Linux backend for VirtualMouse: a uinput virtual HID device for
-// clicks/movement (works under X11 and under Wayland/gamescope alike, since
-// uinput operates below the display server), plus X11 XQueryPointer for
-// reading the cursor position back.
-//
-// Note: getCursorPosition() needs an X server to talk to. That's true for
-// SteamOS Desktop Mode (plain X11) and for anything else running as a
-// regular X11 client. RotMG under Steam Deck Game Mode runs inside gamescope
-// (a Wayland compositor) via XWayland, which this should also reach — but
-// that path hasn't been verified on real Game Mode hardware, so test there
-// before relying on it.
 #include "VirtualMouse.hpp"
 #include "../platform/PlatformSleep.hpp"
 

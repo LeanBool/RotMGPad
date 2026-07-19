@@ -1,7 +1,3 @@
-//
-// Created by alex on 7/12/26.
-//
-
 #ifndef GAMEPADREALM_ATTRIBUTESMODE_HPP
 #define GAMEPADREALM_ATTRIBUTESMODE_HPP
 #include "IInputMode.hpp"

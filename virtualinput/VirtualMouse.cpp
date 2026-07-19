@@ -7,9 +7,6 @@
 #include <sys/ioctl.h>
 
 VirtualMouse::VirtualMouse(Display *display) {
-    // Store the display unconditionally, before any early return below, so that
-    // getCursorPosition() and the destructor's XCloseDisplay() always have a
-    // valid pointer even if uinput setup fails (e.g. missing permissions).
     display_ = display;
 
     const int fd = open("/dev/uinput", O_WRONLY | O_NONBLOCK);

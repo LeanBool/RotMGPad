@@ -12,8 +12,8 @@ you always know what your buttons will do.
 1. Plug in your controller.
 2. Build the app (see below) or run the provided executable.
 3. Launch RotMGPad, then switch to your game.
-4. Play using the controls below — RotMGPad keeps running in the
-   background and reacts automatically as you open and close menus.
+4. RotMGPad will start paused, in order to pause/unpause, press the touchpad on your controller.
+5. To quit, press the chord button on your controller.
 
 ### Building from source
 
@@ -47,11 +47,6 @@ cmake --build .
 | Back                | Open wheel overlay    |
 
 ### Inventory mode
-
-Once you're in a RotMG menu, the D-pad and shoulder buttons move you between
-a stack of related screens instead of controlling your character:
-
-
 | Input               | Action                     |
 |---------------------|----------------------------|
 | A                   | Double left click          |
@@ -64,23 +59,20 @@ a stack of related screens instead of controlling your character:
 | Start               | Close inventory            |
 | Back                | Open wheel overlay         | 
 
-### Top menu bar
+### Missions mode
+| Input               | Action                     |
+|---------------------|----------------------------|
+| A                   | Left click                 |
+| B                   | Close missions mode        |
 
-When you reach the top menu bar, D-pad left/right moves between its icons
-and **A** opens that section — attributes, pets, or missions, depending on
-which icon is highlighted. **B** returns you to the menu bar from any of
-those sections. **Right stick** can be used to scroll through supported screens.
+### Battle pass mode
+| Input | Action             |
+|-------|--------------------|
+| B     | Close battle pass  |
+| X     | Claim all missions |
 
-### Missions and battle pass
-
-- In the missions list, the left stick moves a cursor and **A** triggers left click to claim a mission.
-- In a mission preview, the right stick scrolls the details and **A** takes
-  you to the full list.
-- The battle pass screen opens its own view where **X** claims everything at once.
-
-### Party / chat
-
-- The left stick moves a cursor over the chat panel.
-- **A** joins the sender's location through party join; **B** teleports to them (not working properly); **X** opens the
-  chat box (through pressing enter).
-
+### Party mode
+| Input               | Action                                                     |
+|---------------------|------------------------------------------------------------|
+| A                   | Join (party/guild member)                                  |
+| B                   | Teleport (unreliable as it uses a fixed offset, TODO: fix) |

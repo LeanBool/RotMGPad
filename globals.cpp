@@ -97,18 +97,8 @@ int WHEEL_CENTER_Y = Base::SCREEN_HEIGHT / 2;
 int WHEEL_RADIUS = Base::WHEEL_RADIUS;
 
 void initScaledGlobals(const int actualScreenWidth, const int actualScreenHeight) {
-    // Assumes RotMG is stretched to fill the whole window/screen (no
-    // letterbox/pillarbox bars) — so X and Y each get their own independent
-    // scale factor against the 1920x1080 reference. This is what makes
-    // arbitrary aspect ratios line up correctly when the game content itself
-    // isn't locked to 16:9: e.g. on a 2560x1080 ultrawide, X stretches more
-    // than Y instead of one factor being forced to fit both.
     const double sx = static_cast<double>(actualScreenWidth) / Base::SCREEN_WIDTH;
     const double sy = static_cast<double>(actualScreenHeight) / Base::SCREEN_HEIGHT;
-    // A pure radius (circular UI element) can't take independent X/Y scaling
-    // without turning into an ellipse, so radii use the average of sx/sy as
-    // a compromise. If the aspect ratio is far from 16:9 and a circle like
-    // MAP_RADIUS looks off, that's the value to hand-tune.
     const double sr = (sx + sy) / 2.0;
 
     const auto X = [sx](const int v) { return static_cast<int>(std::lround(v * sx)); };

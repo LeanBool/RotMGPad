@@ -1,7 +1,3 @@
-//
-// Created by alex on 7/12/26.
-//
-
 #include "AttributesMode.hpp"
 
 #include <algorithm>
