@@ -13,16 +13,9 @@ int main(int argc, char** argv) {
     VirtualKeyboard keyboard;
     ControllerManager controllerManager(controller, &keyboard, &mouse);
 
-#ifndef _WIN32
     Renderer renderer(controllerManager);
     renderer.SDL_main();
-#else
-    while (
-        controllerManager.running
-    ) {
-        controllerManager.mainLoop();
-    }
-#endif
+
     SDL_Quit();
     return 0;
 }
