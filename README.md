@@ -1,7 +1,7 @@
 # RotMGPad
 
 Play Realm of the Mad God with a controller instead of a mouse and
-keyboard. RotMGPad runs alongside the game on Linux, reads your gamepad,
+keyboard. RotMGPad runs alongside the game, reads your gamepad,
 and turns button presses and stick movements into mouse clicks and key
 presses. A light
 on-screen overlay shows you which "mode" the controller is currently in, so
@@ -75,4 +75,4 @@ cmake --build .
 | Input               | Action                                                     |
 |---------------------|------------------------------------------------------------|
 | A                   | Join (party/guild member)                                  |
-| B                   | Teleport (unreliable as it uses a fixed offset, TODO: fix) |
+| B                   | Teleport (unreliable as it uses a fixed offset) |
