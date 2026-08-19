@@ -294,13 +294,14 @@ int Renderer::SDL_main() {
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+#elif defined(_WIN32)
+    glfwWindowHint(GLFW_MOUSE_PASSTHROUGH, GLFW_TRUE);
 #endif
 
     glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
     glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-    glfwWindowHint(GLFW_MOUSE_PASSTHROUGH, GLFW_TRUE);
 
     const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
@@ -466,13 +467,9 @@ int Renderer::SDL_main() {
         glfwPollEvents();
     }
 
-
     cleanupGL();
-
     glfwDestroyWindow(window);
-
     glfwTerminate();
-
     return 0;
 }
 
