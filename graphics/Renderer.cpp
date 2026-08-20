@@ -14,9 +14,6 @@
 namespace {
 // Workaround for GLFW 3.3's GLFW_TRANSPARENT_FRAMEBUFFER hint not reliably
 // producing correct DWM per-pixel alpha compositing on Windows 10/11.
-// GLFW sets up a transparent pixel format but never calls
-// DwmEnableBlurBehindWindow itself, so without this the window either stays
-// opaque or composites incorrectly depending on driver/OS version.
 BOOL SetDwmAlphaCompositing(HWND hWnd, BOOL enable) {
     if (enable) {
         HRGN region = CreateRectRgn(0, 0, -1, -1);

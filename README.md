@@ -7,6 +7,8 @@ presses. A light
 on-screen overlay shows you which "mode" the controller is currently in, so
 you always know what your buttons will do.
 
+### Note: default keybindings are assumed!
+
 ## Getting started
 
 1. Plug in your controller.
