@@ -7,7 +7,7 @@ presses. A light
 on-screen overlay shows you which "mode" the controller is currently in, so
 you always know what your buttons will do.
 
-### Note: default keybindings are assumed!
+### Note: default keybindings are assumed! Run the game in full-screen mode on your primary monitor.
 
 ## Getting started
 
