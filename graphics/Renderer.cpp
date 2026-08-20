@@ -11,6 +11,33 @@
 #include <dwmapi.h>
 #pragma comment(lib, "dwmapi.lib")
 
+namespace {
+// Workaround for GLFW 3.3's GLFW_TRANSPARENT_FRAMEBUFFER hint not reliably
+// producing correct DWM per-pixel alpha compositing on Windows 10/11.
+// GLFW sets up a transparent pixel format but never calls
+// DwmEnableBlurBehindWindow itself, so without this the window either stays
+// opaque or composites incorrectly depending on driver/OS version.
+BOOL SetDwmAlphaCompositing(HWND hWnd, BOOL enable) {
+    if (enable) {
+        // An empty region (not a null region!) is required: a null region
+        // would apply blur/shadow behind the client area (OS-dependent),
+        // which spoils per-pixel alpha compositing.
+        HRGN region = CreateRectRgn(0, 0, -1, -1);
+        DWM_BLURBEHIND bb = {0};
+        bb.dwFlags = DWM_BB_ENABLE | DWM_BB_BLURREGION;
+        bb.hRgnBlur = region;
+        bb.fEnable = TRUE;
+        HRESULT hr = DwmEnableBlurBehindWindow(hWnd, &bb);
+        DeleteObject(region);
+        return SUCCEEDED(hr);
+    } else {
+        DWM_BLURBEHIND bb = {};
+        bb.dwFlags = DWM_BB_ENABLE;
+        bb.fEnable = FALSE;
+        return SUCCEEDED(DwmEnableBlurBehindWindow(hWnd, &bb));
+    }
+}
+}  // namespace
 #endif
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -348,6 +375,21 @@ int Renderer::SDL_main() {
 
     SetWindowPos(hwnd, nullptr, 0, 0, 0, 0,
                  SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+
+    // GLFW's own transparent-framebuffer path is unreliable on Windows 10/11
+    // (see 05_perpixel_alpha.cpp for the isolated repro). Force correct DWM
+    // per-pixel alpha compositing ourselves.
+    //
+    // The class background brush must be black or the compositor's first
+    // WM_ERASEBKGND paint (before our first GL frame lands) can show through
+    // as a non-transparent color, causing a visible flash/flicker. GLFW
+    // registers its own window class internally, so we can't set this via
+    // WNDCLASS at registration time — patch it on the live class instead.
+    SetClassLongPtr(hwnd, GCLP_HBRBACKGROUND, (LONG_PTR)GetStockObject(BLACK_BRUSH));
+
+    if (!SetDwmAlphaCompositing(hwnd, TRUE)) {
+        std::cerr << "Warning: DwmEnableBlurBehindWindow failed; window may not be transparent\n";
+    }
 #endif
 
     glfwMakeContextCurrent(window);
@@ -386,9 +428,6 @@ int Renderer::SDL_main() {
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-
-
-
     glGenVertexArrays(1, &rectVAO_);
     glGenBuffers(1, &rectVBO_);
 
