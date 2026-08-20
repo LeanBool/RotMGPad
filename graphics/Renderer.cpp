@@ -19,9 +19,6 @@ namespace {
 // opaque or composites incorrectly depending on driver/OS version.
 BOOL SetDwmAlphaCompositing(HWND hWnd, BOOL enable) {
     if (enable) {
-        // An empty region (not a null region!) is required: a null region
-        // would apply blur/shadow behind the client area (OS-dependent),
-        // which spoils per-pixel alpha compositing.
         HRGN region = CreateRectRgn(0, 0, -1, -1);
         DWM_BLURBEHIND bb = {0};
         bb.dwFlags = DWM_BB_ENABLE | DWM_BB_BLURREGION;
@@ -376,15 +373,6 @@ int Renderer::SDL_main() {
     SetWindowPos(hwnd, nullptr, 0, 0, 0, 0,
                  SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
 
-    // GLFW's own transparent-framebuffer path is unreliable on Windows 10/11
-    // (see 05_perpixel_alpha.cpp for the isolated repro). Force correct DWM
-    // per-pixel alpha compositing ourselves.
-    //
-    // The class background brush must be black or the compositor's first
-    // WM_ERASEBKGND paint (before our first GL frame lands) can show through
-    // as a non-transparent color, causing a visible flash/flicker. GLFW
-    // registers its own window class internally, so we can't set this via
-    // WNDCLASS at registration time — patch it on the live class instead.
     SetClassLongPtr(hwnd, GCLP_HBRBACKGROUND, (LONG_PTR)GetStockObject(BLACK_BRUSH));
 
     if (!SetDwmAlphaCompositing(hwnd, TRUE)) {
