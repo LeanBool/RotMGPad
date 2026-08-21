@@ -40,7 +40,7 @@ namespace Base {
     constexpr int BATTLE_PASS_CLAIM_ALL_X = 965;
     constexpr int BATTLE_PASS_CLAIM_ALL_Y = 940;
     constexpr int BATTLE_PASS_X = 190;
-    constexpr int BATTLE_PASS_Y = 240;
+    constexpr int BATTLE_PASS_Y = 295;
     constexpr int BATTLE_PASS_CLOSE_X = 1685;
     constexpr int BATTLE_PASS_CLOSE_Y = 70;
 
